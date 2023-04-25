@@ -1,4 +1,5 @@
 export interface Country {
+common: string 
     name: {
       common: string
     }
@@ -8,6 +9,7 @@ export interface Country {
     capital: String[]
     region: string
     population: number
+    area:number
   }
   export interface Countries {
     [Country: string]: Country

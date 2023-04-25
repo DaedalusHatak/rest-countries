@@ -1,55 +1,173 @@
 <script setup lang="ts">
-import axios from 'axios'
-import { onMounted, ref, watch } from 'vue';
+import {  computed, ref } from 'vue';
+import CountryDetails from '@/components/CountryDetails.vue';
+import {countryStore} from '../stores/counter';
+import { Countries, Country } from '@/stores/interfaces';
 
-// async function getCountries() {
-//   await (axios.get('https://restcountries.com/v3.1/all').then((response) => {
-// data.value = response.data;
-// console.log(response.data)
-// }));
-// }
-const data: any = ref({});
-async function getCountries() {
-  const response = await fetch('https://restcountries.com/v3.1/all');
-  data.value = await response.json();
-  console.log(data.value.capital);
+function testing(){
+  return "Hello world"
 }
-getCountries()
+
+const store = countryStore();
+store.getCountries();
+const filteredData:any = computed(() =>{
+  let sortedData;
+  console.log(store.data)
+  if(store.isRegion) {
+sortedData = Object.values(store.data).filter(country => country.region.includes(store.isRegion));
+
+    
+  }
+  
+else if(store.currentName === ""){
+
+ sortedData = Object.values(store.data).filter(country => country.region.includes(store.isRegion))
+
+
+}
+else{
+
+sortedData = Object.values(store.data).filter(country => country.name.common.toLowerCase().includes(store.currentName.toLowerCase()))
+
+}
+return sortedData.sort((a,b) => b.area - a.area)
+})
 
 
 </script>
 
 <template>
   <main>
-  <div class="countries-wrapper">
-   <div class="card" v-for="country in data">
-  <img :src="country.flags.png" alt="">
-{{ country.name.common }}
-{{ country.population }}
-{{ country.region }}
-{{ country.capital}}
+    <div v-if="store.showDetails && store.currentCountry">  <button @click="store.showAllCountries">Go back</button>
+     
+   <div class="card" >
+  <img :src="store.currentCountry.flags.png" alt="">
+{{ store.currentCountry.name.common }}
+{{ store.currentCountry.population }}
+{{ store.currentCountry.region }}
+<p v-if="store.currentCountry.capital">{{ store.currentCountry.capital[0]}}</p>
 </div>
   </div>
+
+    <div class="countries" v-else="!store.showDetails">
+      <div class="selection"><div class="input-field"><img src="../assets/search-outline.svg" alt=""><input placeholder="Search for a country..."  type="text" v-model="store.currentName"></div>
+        <select v-model="store.isRegion"  name="region" id="regions">
+          <option value="" disabled selected hidden>Choose a region</option>
+  <option value="Africa">Africa</option>
+  <option value="Europe">Europe</option>
+  <option value="Americas">Americas</option>
+  <option value="Oceania">Oceania</option>
+  <option value="Asia">Asia</option>
+</select></div>
+  <div class="countries-wrapper">
+   
+   <div class="card" v-for="country in filteredData" @click="store.showMoreDetails(country)">
+  <img :src="country.flags.png" alt="">
+ <div class="country-details"> <p class="country-title">{{ country.name.common }}</p>
+  <p><span>Population: </span>{{ country.population.toLocaleString('en-GB') }}</p>
+  <p><span>Region: </span>{{ country.region }}</p>
+
+
+
+<p v-if="country.capital"><span>Capital: </span>{{ country.capital[0]}}</p></div>
+</div>
+  </div></div>
   </main>
 </template>
 
 <style scoped lang="scss">
+
+.countries{
+.selection{
+  display:grid;
+  grid-template-columns: 40% auto;
+  justify-content: space-between;
+  justify-items: center;
+  margin: 2em 0;
+}
+
+  .input-field{
+    display: inline-flex;
+    background-color: var(--element);
+    padding-left: 2.5em;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 1px;
+    margin: 0 5.25em;
+    box-shadow: rgba(162, 167, 170, 0.1) 0px 1px 12px 0px, rgba(162, 167, 170, 0.1) 0px 1px 10px 0px;
+    font-size: 14px;
+
+
+    img{
+color:var(--colot-text);
+      width:26px;
+    }
+    path{
+ fill: currentColor;
+}
+    input, input:focus-visible,input:hover,input:active,input:focus{
+      background-color: var(--element);
+      color:var(--input);
+      padding: 1.25em;
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 18px;
+      
+    }
+    input::placeholder{
+      color:var(--input);
+    }
+  }
+  select,select:focus-visible,select:hover,select:active,select:focus,option{
+    outline: none;
+    border: none;
+    box-shadow: rgba(162, 167, 170, 0.1) 0px 1px 12px 0px, rgba(162, 167, 170, 0.1) 0px 1px 10px 0px;
+    padding: 1.5em;
+    border-radius: 8px;
+    
+  }
+}
 .countries-wrapper{
-  padding:0 4.85em;
+ 
+
   display:grid;
   align-content: space-between;
   justify-content: space-between;
   gap: 68px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
 .card{
-text-align: center;
-}
-  img{
-    width: 100%;
-    height: auto;
+  box-shadow: rgba(162, 167, 170, 0.1) 0px 1px 12px 0px, rgba(162, 167, 170, 0.1) 0px 1px 10px 0px;
+  border-radius: 8px;
+  background-color: var(--element);
+  cursor: pointer;
+  font-size: 14px;
+.country-details{
+  padding: 0 0 3em 2em;
+  font-weight: 800;
+  font-size: 16px;
+  span{
+    color:dark;
+  }
+  .country-title{
+    padding: 1em 0;
+    font-size: 22px;
+    font-weight: 800;
   }
 }
-@media screen and (min-width: 768px) {
+}
+.card-detail{
+  font-size: 16px;
+}
+  img{
+    border-radius: 8px 8px 0 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/2;
+  }
+}
+@media screen and (min-width: 1400px) {
   .countries-wrapper {
     grid-template-columns: repeat(4, 1fr);
   }
