@@ -25,6 +25,7 @@
   --color-text: var(--light-text);
   --input:var(--light-input);
   --section-gap: 160px;
+  --shadow:var(--dark-elements);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +34,7 @@
     --color-text: var(--white);
     --element: var(--dark-elements);
     --input:var(--white);
+    --shadow:var(--white);
   }
   svg{
     color:var(--color-text);
@@ -49,6 +51,8 @@
 }
 
 body {
+  max-width: 1440px;
+margin: 0 auto;
   padding: 1em;
   min-height: 100vh;
   color: var(--color-text);
