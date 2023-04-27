@@ -29,7 +29,9 @@ const filteredData: any = computed(() => {
 <template>
   <main>
 
-      <country-details v-if="store.showDetails && store.currentCountry"></country-details>
+  <country-details v-if="store.showDetails && store.currentCountry" :data="store.currentCountry"></country-details>
+
+     
 
 
     <div class="countries" v-else-if="!store.showDetails">
