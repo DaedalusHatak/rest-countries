@@ -3,11 +3,11 @@
 ## Please do not remove line 5 - thanks! 🙂 ##
 ###############################################
 *.sketch
-*node_modules/*
+.idea
 node_modules
-**/node_modules
-node_modules
-/node_modules
+dist
+npm-debug.log*
+.DS_Store
 # Avoid accidental XD or Figma upload if you convert the design file
 #######################################################
 ## Please do not remove lines 11 and 12 - thanks! 🙂 ##
