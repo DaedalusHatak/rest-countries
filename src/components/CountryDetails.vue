@@ -4,7 +4,7 @@
 
 <div class="card" v-if="props.data">
   <img :src="props.data.flags.png" alt="" />
- <div> <div>
+ <div class="card-details"> <div >
 
   <h1 class="country-title">{{ props.data.name.common }}</h1>
   <p v-if="props.data.altSpellings">
@@ -17,9 +17,8 @@
             <p v-if="props.data.capital">
               <span>Capital: </span>                  {{ props.data.capital[0] }}
             </p></div>
- </div>
 
- <div>     
+            <div>     
             <p><span>Top Level Domain: </span>        {{ props.data.tld[0] }}</p>
   <p v-for="currency in props.data.currencies" :key="currency.name">
             <span>Currencies: </span>                 {{ currency.name }}</p>
@@ -30,6 +29,9 @@
 
 
  </div>
+ </div>
+
+
 </div>
     </div>
 </template>
@@ -46,11 +48,25 @@ import { Countries, Country } from '@/stores/interfaces'
 const store = countryStore()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .lang-list:after{
   content: ", "
+  
+}
+.lang-list:last-child:after{
+  content: ""
+
+
+  
 }
 .card{
   display: grid;
   grid-template-columns: 1fr 1fr;
-}</style>
+
+  .card-details{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+</style>
