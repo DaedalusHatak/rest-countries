@@ -4,12 +4,13 @@ import CountryDetails from '@/components/CountryDetails.vue'
 import { countryStore } from '../stores/counter'
 
 import IconSearch from '@/components/icons/IconSearch.vue'
+import { Country } from '@/stores/interfaces'
 
 
 const store = countryStore()
 store.getCountries()
 const filteredData: any = computed(() => {
-  let sortedData
+  let sortedData;
   console.log(store.data)
   if (store.isRegion && !store.currentName) {
     sortedData = Object.values(store.data).filter((country) =>

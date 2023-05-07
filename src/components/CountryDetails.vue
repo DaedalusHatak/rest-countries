@@ -40,7 +40,6 @@ const props = defineProps({
   data: Object
 })
 
-import { defineProps } from 'vue'
 
 import { countryStore } from '../stores/counter'
 
