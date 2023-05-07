@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import CountryDetails from '@/components/CountryDetails.vue'
 import { countryStore } from '../stores/counter'
-import { Countries, Country } from '@/stores/interfaces'
 
-function testing() {
-  return 'Hello world'
-}
+import IconSearch from '@/components/icons/IconSearch.vue'
+
 
 const store = countryStore()
 store.getCountries()
@@ -37,7 +35,7 @@ const filteredData: any = computed(() => {
     <div class="countries" v-else-if="!store.showDetails">
       <div class="selection">
         <div class="input-field">
-          <img src="../assets/search-outline.svg" alt="" /><input
+          <icon-search></icon-search><input
             placeholder="Search for a country..."
             type="text"
             v-model="store.currentName"
@@ -80,7 +78,7 @@ const filteredData: any = computed(() => {
     grid-template-columns: 35% auto;
     justify-content: space-between;
     justify-items: center;
-    margin: 2em 0;
+    margin-bottom: 2em;
   }
 
   .input-field {
@@ -94,13 +92,10 @@ const filteredData: any = computed(() => {
     box-shadow: rgba(92, 85, 85, 0.1) 0px 1px 10px 0px, rgba(92, 85, 85, 0.1) 0px 1px 5px 0px;
     font-size: 14px;
 
-    img {
-      color: var(--colot-text);
-      width: 26px;
-    }
-    path {
-      fill: currentColor;
-    }
+svg{
+  width:25px;
+}
+ 
     input,
     input:focus-visible,
     input:hover,
