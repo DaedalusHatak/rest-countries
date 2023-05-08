@@ -9,9 +9,9 @@ import { Country } from '@/stores/interfaces'
 const store = countryStore()
 store.getCountries()
 const filteredData: Ref<Country[]> = computed(() => {
-  let sortedData: Country[];
-console.log(store.data);
-  if (store.isRegion && !store.currentName) {
+  let sortedData;
+if(store.data){
+  if ( store.isRegion && !store.currentName) {
     sortedData = Object.values(store.data).filter((country) =>
       country.region.includes(store.isRegion)
     )
@@ -21,7 +21,9 @@ console.log(store.data);
     )
   }
   return sortedData.sort((a, b) => b.area - a.area)
-})
+}
+}
+)
 </script>
 
 <template>

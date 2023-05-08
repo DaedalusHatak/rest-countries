@@ -46,9 +46,9 @@ const store = countryStore()
           <p v-for="(border, index) in props.data.borders">
             <button
               v-if="props.allCountries"
-              @click="store.showMoreDetails(props.allCountries[index][0])"
+              @click="store.showMoreDetails(props.allCountries[index])"
             >
-              {{ props.allCountries[index][0].name.common }}
+              {{ props.allCountries[index].name.common }}
             </button>
           </p>
         </div>
