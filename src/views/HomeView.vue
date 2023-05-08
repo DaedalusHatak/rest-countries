@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { Ref, computed } from 'vue'
 import CountryDetails from '@/components/CountryDetails.vue'
 import { countryStore } from '../stores/counter'
 
 import IconSearch from '@/components/icons/IconSearch.vue'
 import { Country } from '@/stores/interfaces'
 
-
 const store = countryStore()
 store.getCountries()
-const filteredData: any = computed(() => {
-  let sortedData;
-  console.log(store.data)
+const filteredData: Ref<Country[]> = computed(() => {
+  let sortedData: Country[];
+console.log(store.data);
   if (store.isRegion && !store.currentName) {
     sortedData = Object.values(store.data).filter((country) =>
       country.region.includes(store.isRegion)
@@ -27,20 +26,17 @@ const filteredData: any = computed(() => {
 
 <template>
   <main>
-
-  <country-details v-if="store.showDetails && store.currentCountry" :data="store.currentCountry"></country-details>
-
-     
-
+    <country-details
+      v-if="store.showDetails && store.currentCountry"
+      :data="store.currentCountry"
+      :allCountries="store.borderCountries"
+    ></country-details>
 
     <div class="countries" v-else-if="!store.showDetails">
       <div class="selection">
         <div class="input-field">
-          <icon-search></icon-search><input
-            placeholder="Search for a country..."
-            type="text"
-            v-model="store.currentName"
-          />
+          <icon-search></icon-search
+          ><input placeholder="Search for a country..." type="text" v-model="store.currentName" />
         </div>
         <select v-model="store.isRegion" name="region" id="regions">
           <option value="" disabled selected hidden>Choose a region</option>
@@ -93,10 +89,6 @@ const filteredData: any = computed(() => {
     box-shadow: rgba(92, 85, 85, 0.1) 0px 1px 10px 0px, rgba(92, 85, 85, 0.1) 0px 1px 5px 0px;
     font-size: 14px;
 
-svg{
-  width:25px;
-}
- 
     input,
     input:focus-visible,
     input:hover,
@@ -114,6 +106,9 @@ svg{
     input::placeholder {
       color: var(--input);
     }
+    svg {
+      width: 25px;
+    }
   }
   select,
   select:focus-visible,
@@ -121,27 +116,22 @@ svg{
   select:active,
   select:focus,
   option {
-   
     background-color: var(--element);
-    color:var(--colot-text);
+    color: var(--colot-text);
     font-size: 14px;
     outline: none;
     border: none;
     box-shadow: rgba(92, 85, 85, 0.1) 0px 1px 10px 0px, rgba(92, 85, 85, 0.1) 0px 1px 5px 0px;
     padding: 1em;
     border-radius: 8px;
-    border-right: 16px solid transparent
+    border-right: 16px solid transparent;
   }
   select option {
- 
-  font-size: 14px;
-  color: red;
-  background-color: #fff;
-  padding: 1em;
-}
-
-
-
+    font-size: 14px;
+    color: red;
+    background-color: #fff;
+    padding: 1em;
+  }
 }
 .countries-wrapper {
   display: grid;
@@ -162,14 +152,13 @@ svg{
       font-size: 14px;
       span {
         color: var(--color-text);
-        font-weight:600;
+        font-weight: 600;
       }
       .country-title {
         padding: 1em 0;
         font-size: 16px;
         font-weight: 800;
       }
-
     }
   }
   .card-detail {

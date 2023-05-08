@@ -10,6 +10,8 @@ common: string
     altSpellings: String[]
     capital: String[]
     region: string
+    cca3:string
+    borders: String[]
     population: number
     area:number
   }

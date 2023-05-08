@@ -28,7 +28,7 @@
   --shadow:var(--dark-elements);
 }
 
-@media (prefers-color-scheme: dark) {
+ 
   :root[color-scheme=dark] {
     --color-background: var(--dark-background);
     --color-text: var(--white);
@@ -37,10 +37,8 @@
     --shadow:var(--white);
  
   }
-  svg{
-    color:var(--color-text);
-  }
-}
+
+
 
 *,
 *::before,
