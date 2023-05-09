@@ -1,6 +1,6 @@
 <template>
     <div class="modal-wrapper"><div class="modal"><p class="modal-header">Error occured</p>
-        <p>{{ err }}</p>
+        <p>{{ store.error }}</p>
         <p>Something went wrong, please try again later. We are doing our best to fix it</p>
         <button class="button-modal" @click="clearError">Okay</button>
     </div>
@@ -9,10 +9,11 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  err:String
-  clearError()
-})
+import { countryStore } from '../stores/counter'
+const store = countryStore();
+function clearError(){
+  store.error = undefined;
+}
 </script>
 <style lang="scss">
     :root[color-scheme='light'] {

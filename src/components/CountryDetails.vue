@@ -43,7 +43,7 @@ const store = countryStore()
         </div>
         <div>
           Border Countries:
-          <p v-for="(border, index) in props.data.borders">
+          <p v-for="(border, index) in props.data.borders" :key="border">
             <button
               v-if="props.allCountries"
               @click="store.showMoreDetails(props.allCountries[index])"

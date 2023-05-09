@@ -9,66 +9,68 @@ import type { Country } from '../stores/interfaces'
 const store = countryStore()
 store.getCountries()
 const filteredData: ComputedRef<Country[] | undefined> = computed(() => {
-  let sortedData;
-if(store.data){
-  if ( store.isRegion && !store.currentName) {
-    sortedData = Object.values(store.data).filter((country) =>
-      country.region.includes(store.isRegion)
-    )
+  let sortedData
+  if (store.data) {
+    if (store.isRegion && !store.currentName) {
+      sortedData = Object.values(store.data).filter((country) =>
+        country.region.includes(store.isRegion)
+      )
+    } else {
+      sortedData = Object.values(store.data).filter((country) =>
+        country.name.common.toLowerCase().includes(store.currentName.toLowerCase())
+      )
+    }
+    return sortedData.sort((a, b) => b.area - a.area)
   } else {
-    sortedData = Object.values(store.data).filter((country) =>
-      country.name.common.toLowerCase().includes(store.currentName.toLowerCase())
-    )
+    return store.data
   }
-  return sortedData.sort((a, b) => b.area - a.area)
-}
-}
-)
+})
+
 </script>
 
 <template>
   <main>
-    <modal-error v-if="store.error" :err="store.error"></modal-error>
+    <modal-error v-if="store.error"></modal-error>
     <section :class="store.error ? 'modal-up' : ''">
       <country-details
-      v-if="store.showDetails && store.currentCountry"
-      :data="store.currentCountry"
-      :allCountries="store.borderCountries"
-    ></country-details>
+        v-if="store.showDetails && store.currentCountry"
+        :data="store.currentCountry"
+        :allCountries="store.borderCountries"
+      ></country-details>
 
-    <div class="countries" v-else-if="!store.showDetails">
-      <div class="selection">
-        <div class="input-field">
-          <icon-search></icon-search
-          ><input placeholder="Search for a country..." type="text" v-model="store.currentName" />
+      <div class="countries" v-else-if="!store.showDetails">
+        <div class="selection">
+          <div class="input-field">
+            <icon-search></icon-search
+            ><input placeholder="Search for a country..." type="text" v-model="store.currentName" />
+          </div>
+          <select v-model="store.isRegion" name="region" id="regions">
+            <option value="" disabled selected hidden>Choose a region</option>
+            <option value="Africa">Africa</option>
+            <option value="Europe">Europe</option>
+            <option value="Americas">Americas</option>
+            <option value="Oceania">Oceania</option>
+            <option value="Asia">Asia</option>
+          </select>
         </div>
-        <select v-model="store.isRegion" name="region" id="regions">
-          <option value="" disabled selected hidden>Choose a region</option>
-          <option value="Africa">Africa</option>
-          <option value="Europe">Europe</option>
-          <option value="Americas">Americas</option>
-          <option value="Oceania">Oceania</option>
-          <option value="Asia">Asia</option>
-        </select>
-      </div>
-      <div class="countries-wrapper">
-        <div
-          class="card"
-          v-for="country in filteredData"
-          @click="store.showMoreDetails(country)"
-          :key="country.name.common"
-        >
-          <img :src="country.flags.png" alt="" />
-          <div class="country-details">
-            <p class="country-title">{{ country.name.common }}</p>
-            <p><span>Population: </span>{{ country.population.toLocaleString('en-GB') }}</p>
-            <p><span>Region: </span>{{ country.region }}</p>
+        <div class="countries-wrapper">
+          <div
+            class="card"
+            v-for="country in filteredData"
+            @click="store.showMoreDetails(country)"
+            :key="country.name.common"
+          >
+            <img :src="country.flags.png" alt="" />
+            <div class="country-details">
+              <p class="country-title">{{ country.name.common }}</p>
+              <p><span>Population: </span>{{ country.population.toLocaleString('en-GB') }}</p>
+              <p><span>Region: </span>{{ country.region }}</p>
 
-            <p v-if="country.capital"><span>Capital: </span>{{ country.capital[0] }}</p>
+              <p v-if="country.capital"><span>Capital: </span>{{ country.capital[0] }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </section>
   </main>
 </template>
