@@ -8,7 +8,7 @@ import type { Countries, Country } from '../stores/interfaces'
 
 const store = countryStore()
 store.getCountries()
-const filteredData: ComputedRef<any> = computed(() => {
+const filteredData: ComputedRef<Country[] | undefined> = computed(() => {
   let sortedData;
 if(store.data){
   if ( store.isRegion && !store.currentName) {
