@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Ref, computed } from 'vue'
-import CountryDetails from '@/components/CountryDetails.vue'
+import CountryDetails from '../components/CountryDetails.vue'
 import { countryStore } from '../stores/counter'
 
-import IconSearch from '@/components/icons/IconSearch.vue'
-import { Country } from '@/stores/interfaces'
+import IconSearch from '../components/icons/IconSearch.vue'
+import { Country } from '../stores/interfaces'
 
 const store = countryStore()
 store.getCountries()
