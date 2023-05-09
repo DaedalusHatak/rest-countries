@@ -3,10 +3,7 @@ import { RouterView } from 'vue-router'
 import { useColorMode } from '@vueuse/core'
 import IconMoon from './components/icons/IconMoon.vue'
 const mode = useColorMode({ attribute: 'color-scheme' })
-function modeChange() {
-  console.log(mode)
-  mode.value === 'light' ? 'dark' : 'light'
-}
+
 </script>
 
 <template>
