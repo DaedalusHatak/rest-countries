@@ -33,10 +33,10 @@ Users should be able to:
 
 ### Screenshot
 
-![Dark Mode](./screenshots\darkmodePC.png)
-![Light Mode](./screenshots\lightmodePC.png)
-![Light Mobile](./screenshots\mobile.png)
-![Dark Mobile](./screenshots\mobile1.png)
+![Dark Mode](./screenshots/darkmodePC.png)
+![Light Mode](./screenshots/lightmodePC.png)
+![Light Mobile](./screenshots/mobile.png)
+![Dark Mobile](./screenshots/mobile1.png)
 
 
 
@@ -44,8 +44,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Netlify](https://imaginative-puffpuff-bdb744.netlify.app/)
+- Solution URL: [Github](https://github.com/DaedalusHatak/rest-countries)
 
 ## My process
 
