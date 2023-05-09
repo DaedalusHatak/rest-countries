@@ -10,24 +10,34 @@ export const countryStore = defineStore('store', () => {
   const currentCountry = ref<Country>()
   const data = ref<Country[]>()
   async function getCountries() {
-   await fetch("https://httpstat.us/500")
+   await fetch("https://www.httpstat.us/500")
     .then(response => {
       if(!response.ok)
       { 
         const err = new Error();
         if(response.status >= 400 && response.status < 500) err.name="Page ";
-        err.name+=response.statusText;
+    
+
+  err.name+=response.statusText;
+
+         
+
         err.message = response.status.toString();
         throw err;
       }
       else{
+        
        return response.json();
       }
     }) 
     .then(responseData => data.value = responseData)
     .catch(err => {
       console.log(err)
+  
       error.value = err;
+      console.log(error.value)
+      const syntax = error.value?.toString().includes("is not valid JSON")
+      if(syntax){error.value = "Syntax Error"}
     })
     
   
