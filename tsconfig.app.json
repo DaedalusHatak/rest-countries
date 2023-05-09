@@ -5,7 +5,7 @@
   "compilerOptions": {
     "lib": ["ES2022","DOM"],
     "isolatedModules": false,
- 
+    "verbatimModuleSyntax":true,
     "composite": true,
     "baseUrl": ".",
     "paths": {
