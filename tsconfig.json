@@ -1,20 +1,16 @@
 {
   "compilerOptions": {
-   "verbatimModuleSyntax":true,
-    "module": "ES6",
-    "target": "ES6",
-    "lib": ["ES6","DOM"],
+      "target": "esnext",
+      "module": "esnext",
+      "moduleResolution": "node",
+      "strict": true,
+      "importHelpers": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "experimentalDecorators": true,
+      "lib": ["dom", "esnext"]
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
-  ]
+  "exclude": ["node_modules", "dist"]
 }
