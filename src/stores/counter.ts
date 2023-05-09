@@ -1,16 +1,35 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { Country, Countries } from './interfaces'
+import type { Country } from './interfaces'
 export const countryStore = defineStore('store', () => {
   const isRegion = ref<string>('')
   const currentName = ref<string>('')
   const showDetails = ref<boolean>()
+  const error = ref<string>()
   const borderCountries = ref<any[]>([])
   const currentCountry = ref<Country>()
   const data = ref<Country[]>()
   async function getCountries() {
-    const response = await fetch('https://restcountries.com/v3.1/all')
-    data.value = await response.json()
+    const response = await fetch("https://restcountries.com/v3.1/all3432432")
+    .then(response => {
+      if(!response.ok)
+      { 
+        const err = new Error();
+        if(response.status >= 400 && response.status < 500) err.name="Page ";
+        err.name+=response.statusText;
+        err.message = response.status.toString();
+        throw err;
+      }
+      else{
+       return response.json();
+      }
+    }) 
+    .then(responseData => data.value = responseData)
+    .catch(err => {
+      console.log(err)
+      error.value = err;
+    })
+    
   
   }
 
@@ -38,6 +57,7 @@ export const countryStore = defineStore('store', () => {
   }
   return {
     isRegion,
+    error,
     showAllCountries,
     currentCountry,
     currentName,

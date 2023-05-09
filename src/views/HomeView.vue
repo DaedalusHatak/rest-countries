@@ -2,9 +2,9 @@
 import { type ComputedRef, computed } from 'vue'
 import CountryDetails from '../components/CountryDetails.vue'
 import { countryStore } from '../stores/counter'
-
+import ModalError from '../components/ModalError.vue'
 import IconSearch from '../components/icons/IconSearch.vue'
-import type { Countries, Country } from '../stores/interfaces'
+import type { Country } from '../stores/interfaces'
 
 const store = countryStore()
 store.getCountries()
@@ -28,7 +28,9 @@ if(store.data){
 
 <template>
   <main>
-    <country-details
+    <modal-error v-if="store.error" :err="store.error"></modal-error>
+    <section :class="store.error ? 'modal-up' : ''">
+      <country-details
       v-if="store.showDetails && store.currentCountry"
       :data="store.currentCountry"
       :allCountries="store.borderCountries"
@@ -67,6 +69,7 @@ if(store.data){
         </div>
       </div>
     </div>
+    </section>
   </main>
 </template>
 

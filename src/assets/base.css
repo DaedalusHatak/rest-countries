@@ -22,6 +22,7 @@
 :root {
   --color-background: var(--light-background);
   --element: var(--white);
+  --color-background-modal:var(--dark-elements);
   --color-text: var(--light-text);
   --input:var(--light-input);
   --section-gap: 160px;
@@ -31,6 +32,7 @@
  
   :root[color-scheme=dark] {
     --color-background: var(--dark-background);
+    --color-background-modal:var(--dark-background);
     --color-text: var(--white);
     --element: var(--dark-elements);
     --input:var(--white);
