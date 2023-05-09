@@ -23,8 +23,10 @@ export const countryStore = defineStore('store', () => {
     for (let i = 0; currentCountry.value.borders.length > i; i++) {
       
       const borderCountry:String = currentCountry.value.borders[i];
+     if(data.value){
       const borderObject =  data.value.filter((country:any) => country.cca3 === borderCountry)
       borderCountries.value.push(borderObject[0])
+     }
       
     }
 

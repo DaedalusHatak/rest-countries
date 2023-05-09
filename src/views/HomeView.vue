@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Ref, computed } from 'vue'
+import { type ComputedRef, computed } from 'vue'
 import CountryDetails from '../components/CountryDetails.vue'
 import { countryStore } from '../stores/counter'
 
 import IconSearch from '../components/icons/IconSearch.vue'
-import { Country } from '../stores/interfaces'
+import type { Countries, Country } from '../stores/interfaces'
 
 const store = countryStore()
 store.getCountries()
-const filteredData: Ref<Country[]> = computed(() => {
+const filteredData: ComputedRef<any> = computed(() => {
   let sortedData;
 if(store.data){
   if ( store.isRegion && !store.currentName) {
