@@ -7,25 +7,25 @@ export const countryStore = defineStore('store', () => {
   const showDetails = ref<boolean>()
   const borderCountries = ref<any[]>([])
   const currentCountry = ref<Country>()
-  const data = ref<Countries>({})
+  const data = ref<Country[]>()
   async function getCountries() {
     const response = await fetch('https://restcountries.com/v3.1/all')
     data.value = await response.json()
+  
   }
 
   function showMoreDetails(countryData: Country) {
     currentName.value = ''
     showDetails.value = true
     borderCountries.value = []
-    console.log(data.value)
+
     currentCountry.value = countryData
     for (let i = 0; currentCountry.value.borders.length > i; i++) {
       
       const borderCountry:String = currentCountry.value.borders[i];
-
-      borderCountries.value.push(
-        Object.values(data.value).filter((country) => country.cca3 === borderCountry)
-      )
+      const borderObject =  data.value.filter((country:any) => country.cca3 === borderCountry)
+      borderCountries.value.push(borderObject[0])
+      
     }
 
   }
