@@ -1,11 +1,9 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.node.json",
+  "extends": "@tsconfig/node18/tsconfig.json",
   "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
   "compilerOptions": {
-    "ignoreDeprecations": "5.0",
-    "verbatimModuleSyntax":true,
     "composite": true,
-    "types": ["node"],
-    "lib": ["ES7","DOM"],
+    "module": "ESNext",
+    "types": ["node"]
   }
 }
