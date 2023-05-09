@@ -10,7 +10,7 @@ export const countryStore = defineStore('store', () => {
   const currentCountry = ref<Country>()
   const data = ref<Country[]>()
   async function getCountries() {
-   await fetch("https://restcountries.com/v3.1/all3432432")
+   await fetch("https://httpstat.us/500")
     .then(response => {
       if(!response.ok)
       { 
